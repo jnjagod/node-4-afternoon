@@ -18,9 +18,9 @@ const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 const CHECKOUT = "CHECKOUT";
 const SIGN_OUT = "SIGN_OUT";
 
-export default function( state = initialState, action ) {
+export default function (state = initialState, action) {
   let { payload } = action;
-  switch( action.type ) {
+  switch (action.type) {
     case LOGIN + '_FULFILLED':
       return Object.assign({}, state, { user: payload.username, cart: payload.cart, total: payload.total });
 
@@ -32,12 +32,12 @@ export default function( state = initialState, action ) {
 
     case GET_SWAG + '_FULFILLED':
       return Object.assign({}, state, { swag: payload });
-    
+
     case GET_SWAG + '_REJECTED':
       return Object.assign({}, state, { swag: [] });
 
     case SEARCH_SWAG + '_FULFILLED':
-      return Object.assign({}, state, { swag: payload } );
+      return Object.assign({}, state, { swag: payload });
 
     case ADD_TO_CART + '_FULFILLED':
       return Object.assign({}, state, { cart: payload.cart, total: payload.total });
@@ -60,20 +60,20 @@ export default function( state = initialState, action ) {
   }
 }
 
-export function login( obj, history ) {
+export function login(obj, history) {
   return {
     type: LOGIN,
-    payload: axios.post( URL.login, obj ).then( response => {
+    payload: axios.post(URL.login, obj).then(response => {
       history.push('/shop');
       return response.data;
     })
   };
 }
 
-export function register( obj, history ) {
+export function register(obj, history) {
   return {
     type: REGISTER,
-    payload: axios.post( URL.register, obj ).then( response => {
+    payload: axios.post(URL.register, obj).then(response => {
       history.push('/shop');
       return response.data;
     })
@@ -83,48 +83,48 @@ export function register( obj, history ) {
 export function getUser() {
   return {
     type: GET_USER,
-    payload: axios.get( URL.user ).then( response => response.data )
+    payload: axios.get(URL.user).then(response => response.data)
   };
 }
 
 export function getSwag() {
   return {
     type: GET_SWAG,
-    payload: axios.get( URL.swag ).then( response => response.data )
+    payload: axios.get(URL.swag).then(response => response.data)
   };
 }
 
-export function searchSwag( category ) {
+export function searchSwag(category) {
   return {
     type: SEARCH_SWAG,
-    payload: axios.get( `${URL.search}?category=${category}` ).then( response => response.data )
+    payload: axios.get(`${URL.search}?category=${category}`).then(response => response.data)
   };
 }
 
-export function addToCart( id ) {
+export function addToCart(id) {
   return {
     type: ADD_TO_CART,
-    payload: axios.post( `${URL.cart}/${id}` ).then( response => response.data )
+    payload: axios.post(`${URL.cart}/${id}`).then(response => response.data)
   };
 }
 
-export function removeFromCart( id ) {
+export function removeFromCart(id) {
   return {
     type: REMOVE_FROM_CART,
-    payload: axios.delete( `${URL.cart}/${id}` ).then( response => response.data )
+    payload: axios.delete(`${URL.cart}/${id}`).then(response => response.data)
   };
 }
 
 export function checkout() {
   return {
     type: CHECKOUT,
-    payload: axios.post( URL.checkout ).then( response => response.data )
+    payload: axios.post(URL.checkout).then(response => response.data)
   };
 }
 
-export function signout( history ) {
+export function signout(history) {
   return {
     type: SIGN_OUT,
-    payload: axios.post( URL.signout ).then( () => history.push('/') )
+    payload: axios.post(URL.signout).then(() => history.push('/'))
   };
 }
